@@ -5,8 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-    <H1>HELLO WORLD</H1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <h1>HELLO WORLD</h1>
+                    <div class="form-group">
+                        <label for="InputIP">IP address</label>
+                        <input type="text" class="form-control" id="InputIP" placeholder="Enter IP address">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputSubnet">Subnet</label>
+                        <select class="form-control" id="InputSubnet"></select>
+                    </div>
+                    <button id='cal' class='btn btn-default'>calculator</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" 
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 </html>
