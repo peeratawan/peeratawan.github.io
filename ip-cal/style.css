@@ -11,4 +11,14 @@ button#cal {
     cursor: pointer;
 }
 
-<tr style="border-bottom:1pt solid black;">
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #3333ff;
+    color: white;
+    text-align: center;
+ }
