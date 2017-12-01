@@ -152,6 +152,52 @@ function getClass(addr) {
     return Class;
 }
 
+function getAllNetworkGroup(ip,subnet){
+	var subnetbin = getSubnetBin(subnet)
+	var notFullIndex = -1
+	for(var i=0;i<4;i++){
+		var intip = parseInt(subnetbin.slice(i*8,(i+1)*8),2)
+		if(intip !== 255 && intip !== 0) {
+			notFullIndex = i;
+			break;
+		}
+	}
+	if(notFullIndex === -1) {
+		return null
+	}
+	else{
+		var result = [];
+		var tmp = '';
+		ip = ip.split('.');
+		for(var i = 0; i<4 ;i++){
+			ip[i] = parseInt(ip[i])
+			if(i < notFullIndex){
+				tmp += ip[i].toString()+'.'
+			}
+			else if(i >= notFullIndex){
+				ip[i] = 0;
+				if(i == 3){
+					tmp += '*'
+				} else{
+					tmp += '*.'
+				}
+			}
+		}
+		$('#ipaddress2').text(tmp);
+		$('#allpos-div').removeClass('hide');
+		var wildcardBin = getWildCard(subnet)
+		var increment = parseInt(wildcardBin.slice(notFullIndex*8,(notFullIndex+1)*8),2)+1
+		// console.log(ip);
+		var numgroup = Math.pow(2,subnetbin.slice(notFullIndex*8,(notFullIndex+1)*8).match(/1/g || []).length)
+		for(var i=0;i<numgroup;i++){
+			var thisIp = ip.join('.')
+			console.log(thisIp);
+			$("#allposs-table").append('<tr><td>'+thisIp+'</td><td>'+getRange(thisIp,subnet)+'</td><td>'+getBoardcast(thisIp,subnet)+'</td></tr>')
+			ip[notFullIndex] += increment
+		}
+	}
+	// return null;
+}
 
 function getRange(ip,subnet){
 	var nohost = parseInt(getWildCard(subnet),2)+1;
