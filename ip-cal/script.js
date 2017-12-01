@@ -3,11 +3,12 @@ function ValidateIPaddress(ipaddress)
     if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {  
         return true;
     } else {
+        alert('Please provide a valid IP address.');
         return false;
     }
 }
 
-function gensub(index) {
+function gensubnet(index) {
     subnet_bin = "";
     for(var i=0; i<32 ;i++){
         if(i<index){
@@ -27,29 +28,23 @@ function gensub(index) {
 
 
 
-console.log("IP Subnet Calculator");
-// $('h1').text("poby")
-// $('body').append('<p> This is  my website </p>')
 for (var index = 32; index > 0; index--) {
-    // console.log(index);
-
-    var subnetf = gensub(index);
+    var subnetf = gensubnet(index);
     $('select#InputSubnet').append('<option value="'+index+'">' + subnetf +' / '+ index + '</option>')
-    // '<option value="0">0</option>'
-    // '<option value="1">1</option>'
 }
+
 $('form').submit(function(e){
     e.preventDefault();
-    var ip = $('input#InputIP').val();
-    $('td#ip').text(ip);
-    var subnet = ($('select#InputSubnet').val());
-    if(!ValidateIPaddress(ip)){
-        alert('Please provide a valid IP address.');
+    var rawData = $('form').serializeArray();
+    var data = {};
+    console.log(rawData.length);
+	for (var i = 0; i < rawData.length; i++) {
+		data[rawData[i].name] = rawData[i].value;
+	}
+    if(!ValidateIPaddress(data.ip)){
         return;
     }
-
-
-    console.log(ip);
-    console.log(subnet);
+    var result = $('#result-group');
+    $('#ip').text(data['ip']);
 })
 

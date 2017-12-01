@@ -15,11 +15,11 @@
                     <h1>IP SUBNET CALCULATOR</h1>
                     <div class="form-group">
                         <label for="InputIP">IP address</label>
-                        <input type="text" class="form-control" id="InputIP" placeholder="Enter IP address">
+                        <input type="text" class="form-control" id="InputIP" name="ip" placeholder="Enter IP address">
                     </div>
                     <div class="form-group">
                         <label for="InputSubnet">Subnet</label>
-                        <select class="form-control" id="InputSubnet"></select>
+                        <select class="form-control" id="InputSubnet" name="subnet"></select>
                     </div>
                     <button id='cal' class='btn btn-default'>calculator</button>
                 </form>
@@ -33,7 +33,7 @@
                 <table class="table">
                     <tr>
                         <td> IP Address: </td>
-                        <td id="ipaddress"> </td>
+                        <td id="ip"> </td>
                     </tr>
                     <tr>
                         <td> Network Address: </td>
