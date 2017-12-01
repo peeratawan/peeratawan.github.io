@@ -217,6 +217,7 @@ function getRange(ip,subnet){
 	return result
 }
 
+
 $('form').submit(function(e){
     e.preventDefault();
     var rawData = $('form').serializeArray();
@@ -231,7 +232,7 @@ $('form').submit(function(e){
     var result = $('#result-group');
     var nohost = parseInt(getWildCard(data['csubnet']),2)+1;
     
-
+    
     $('#ip').text(data['ip']);
     $('#networkad').text(getNetworkAddress(data['ip'],data['subnet']))
     $('#wildcardmask').text(getWildCardMask(data['subnet']))
@@ -248,8 +249,9 @@ $('form').submit(function(e){
 	$('#binarysubnet').text(getSubnetBin(data['subnet']))
 	$('#iprange').text(getRange(data['ip'],data['subnet']))
 	$('#iptype').text(ipprivate(data['ip']))
-	$('#ipclass').text(getClass(data['ip']))
+    $('#ipclass').text(getClass(data['ip']))
+    //$("#allposs-table").empty();
 	getAllNetworkGroup(data['ip'],data['subnet'])
-	$('#result-group').removeClass('hide');
-})
+    $('#result-group').removeClass('hide')
 
+});

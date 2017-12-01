@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -21,86 +22,87 @@
                         <label for="InputSubnet">Subnet</label>
                         <select class="form-control" id="InputSubnet" name="subnet"></select>
                     </div>
-                    <button id='cal' class='btn btn-default'>calculator</button>
+                    <button id='cal' class='btn btn-default' color='green'>calculator</button>
                 </form>
                 
             </div>
         </div>
-        <div id="result-group" class="result-group hide"></div>
-        <div class="row">
-            <div class="col-md-12">
-                <h3>RESULT</h3>
-                <table class="table">
-                    <tr>
-                        <td> IP Address: </td>
-                        <td id="ip"> </td>
-                    </tr>
-                    <tr>
-                        <td> Network Address: </td>
-                        <td id="networkad"> </td>
-                    </tr>
-                    <tr>
-                        <td> Useable Host IP Range: </td>
-                        <td id="iprange"> </td>
-                    </tr>
-                    <tr>
-                        <td> Broadcast Address </td>
-                        <td id="broadcastad"> </td>
-                    </tr>
-                    <tr>
-                        <td> Total Number of Hosts: </td>
-                        <td id="noofhost"> </td>
-                    </tr>
-                    <tr>
-                        <td> Number of Useable Hosts: </td>
-                        <td id="noofuseable"> </td>
-                    </tr>
-                    <tr>
-                        <td> Subnet Mask: </td>
-                        <td id="subnetmask"> </td>
-                    </tr>
-                    <tr>
-                        <td> Wildcard Mask: </td>
-                        <td id="wildcardmask"> </td>
-                    </tr>
-                    <tr>
-                        <td> Binary Subnet Mask: </td>
-                        <td id="binarysubnet"> </td>
-                    </tr>
-                    <tr>
-                        <td> IP Class: </td>
-                        <td id="ipclass"> </td>
-                    </tr>
-                    <tr>
-                        <td> CIDR Notation: </td>
-                        <td id="cidr"> </td>
-                    </tr>
-                    <tr>
-                        <td> IP Type: </td>
-                        <td id="iptype"> </td>
-                    </tr>
-                    <tr>
-                        <td> Short: </td>
-                        <td id="short"> </td>
-                    </tr>
-                    <tr>
-                        <td> Binary ID: </td>
-                        <td id="binaryid"> </td>
-                    </tr>
-                    <tr>
-                        <td> Integer ID: </td>
-                        <td id="integerid"> </td>
-                    </tr>
-                    <tr>
-                        <td> Hex ID: </td>
-                        <td id="hexid"> </td>
-                    </tr>
-                </table>
+        <div id="result-group" class="result-group hide">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>RESULT</h3>
+                    <table class="table">
+                        <tr>
+                            <td> IP Address: </td>
+                            <td id="ip"> </td>
+                        </tr>
+                        <tr>
+                            <td> Network Address: </td>
+                            <td id="networkad"> </td>
+                        </tr>
+                        <tr>
+                            <td> Useable Host IP Range: </td>
+                            <td id="iprange"> </td>
+                        </tr>
+                        <tr>
+                            <td> Broadcast Address </td>
+                            <td id="broadcastad"> </td>
+                        </tr>
+                        <tr>
+                            <td> Total Number of Hosts: </td>
+                            <td id="noofhost"> </td>
+                        </tr>
+                        <tr>
+                            <td> Number of Useable Hosts: </td>
+                            <td id="noofuseable"> </td>
+                        </tr>
+                        <tr>
+                            <td> Subnet Mask: </td>
+                            <td id="subnetmask"> </td>
+                        </tr>
+                        <tr>
+                            <td> Wildcard Mask: </td>
+                            <td id="wildcardmask"> </td>
+                        </tr>
+                        <tr>
+                            <td> Binary Subnet Mask: </td>
+                            <td id="binarysubnet"> </td>
+                        </tr>
+                        <tr>
+                            <td> IP Class: </td>
+                            <td id="ipclass"> </td>
+                        </tr>
+                        <tr>
+                            <td> CIDR Notation: </td>
+                            <td id="cidr"> </td>
+                        </tr>
+                        <tr>
+                            <td> IP Type: </td>
+                            <td id="iptype"> </td>
+                        </tr>
+                        <tr>
+                            <td> Short: </td>
+                            <td id="short"> </td>
+                        </tr>
+                        <tr>
+                            <td> Binary ID: </td>
+                            <td id="binaryid"> </td>
+                        </tr>
+                        <tr>
+                            <td> Integer ID: </td>
+                            <td id="integerid"> </td>
+                        </tr>
+                        <tr>
+                            <td> Hex ID: </td>
+                            <td id="hexid"> </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="allpos-div" class="hide">
+        <div id="allpos-div" class="hide">
+            <div class="row">
+                <div class="col-md-12">
                     <br>
                     <h3> All possible </h3><h3 id="cidr2"> </h3><h3> Networks for </h3><h3 id="ipaddress2"> </h3>
                     <br>
