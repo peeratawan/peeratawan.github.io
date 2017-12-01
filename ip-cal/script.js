@@ -25,6 +25,8 @@ function gensub(index) {
     return res.join('.');
 }
 
+
+
 console.log("IP Subnet Calculator");
 // $('h1').text("poby")
 // $('body').append('<p> This is  my website </p>')
@@ -45,6 +47,8 @@ $('form').submit(function(e){
         alert('Please provide a valid IP address.');
         return;
     }
+
+
     console.log(ip);
     console.log(subnet);
 })

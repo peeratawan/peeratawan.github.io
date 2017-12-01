@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <form>
-                    <h1>HELLO WORLD</h1>
+                    <h1>IP SUBNET CALCULATOR</h1>
                     <div class="form-group">
                         <label for="InputIP">IP address</label>
                         <input type="text" class="form-control" id="InputIP" placeholder="Enter IP address">
@@ -26,27 +26,96 @@
                 
             </div>
         </div>
+        <div id="result-group" class="result-group hide"></div>
         <div class="row">
             <div class="col-md-12">
-                <table style="width:100%">
+                <h3>RESULT</h3>
+                <table class="table">
                     <tr>
-                      <td>IP address</td>
-                      <td id="ip"></td>
+                        <td> IP Address: </td>
+                        <td id="ipaddress"> </td>
                     </tr>
                     <tr>
-                      <td>Eve</td>
-                      <td>Jackson</td>
+                        <td> Network Address: </td>
+                        <td id="networkad"> </td>
                     </tr>
                     <tr>
-                      <td>John</td>
-                      <td>Doe</td>
+                        <td> Useable Host IP Range: </td>
+                        <td id="iprange"> </td>
                     </tr>
-                  </table>
+                    <tr>
+                        <td> Broadcast Address </td>
+                        <td id="broadcastad"> </td>
+                    </tr>
+                    <tr>
+                        <td> Total Number of Hosts: </td>
+                        <td id="noofhost"> </td>
+                    </tr>
+                    <tr>
+                        <td> Number of Useable Hosts: </td>
+                        <td id="noofuseable"> </td>
+                    </tr>
+                    <tr>
+                        <td> Subnet Mask: </td>
+                        <td id="subnetmask"> </td>
+                    </tr>
+                    <tr>
+                        <td> Wildcard Mask: </td>
+                        <td id="wildcardmask"> </td>
+                    </tr>
+                    <tr>
+                        <td> Binary Subnet Mask: </td>
+                        <td id="binarysubnet"> </td>
+                    </tr>
+                    <tr>
+                        <td> IP Class: </td>
+                        <td id="ipclass"> </td>
+                    </tr>
+                    <tr>
+                        <td> CIDR Notation: </td>
+                        <td id="cidr"> </td>
+                    </tr>
+                    <tr>
+                        <td> IP Type: </td>
+                        <td id="iptype"> </td>
+                    </tr>
+                    <tr>
+                        <td> Short: </td>
+                        <td id="short"> </td>
+                    </tr>
+                    <tr>
+                        <td> Binary ID: </td>
+                        <td id="binaryid"> </td>
+                    </tr>
+                    <tr>
+                        <td> Integer ID: </td>
+                        <td id="integerid"> </td>
+                    </tr>
+                    <tr>
+                        <td> Hex ID: </td>
+                        <td id="hexid"> </td>
+                    </tr>
+                </table>
             </div>
         </div>
-        
+        <div class="row">
+            <div class="col-md-12">
+                <div id="allpos-div" class="hide">
+                    <br>
+                    <h3> All possible </h3><h3 id="cidr2"> </h3><h3> Networks for </h3><h3 id="ipaddress2"> </h3>
+                    <br>
+                    <table class="table" id="allposs-table">
+                        <tr>
+                            <th> Network Address </th>
+                            <th> Usable Host Range </th>
+                            <th> Broadcast Address </th>
+                        </tr>
+                    </table>
+                </div>   
+            </div>
+        </div>
+    
     </div>
-
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" 
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
