@@ -8,50 +8,27 @@ function ValidateIPaddress(ipaddress)
 }
 
 function gensub(index) {
-    if(index / 8 < 1){
-        sub = "";
-    } else if(index / 8 < 2){
-        sub = "255.";
-    } else if(index / 8 < 3){
-        sub = "255.255.";
-    } else if(index / 8 < 4){
-        sub = "255.255.255.";
-    } else if(index / 8 == 4){
-        sub = "255.255.255.255";
+    subnet_bin = "";
+    for(var i=0; i<32 ;i++){
+        if(i<index){
+            subnet_bin += 1;
+        } else {
+            subnet_bin += 0;
+        }
     }
-
-    if(index % 8 == 0 && index / 8 !== 4){
-        sub += "0";
-    } else if(index % 8 == 1){
-        sub += "128";
-    } else if(index % 8 == 2){
-        sub += "192";
-    } else if(index % 8 == 3){
-        sub += "224";
-    } else if(index % 8 == 4){
-        sub += "240";
-    } else if(index % 8 == 5){
-        sub += "248";
-    } else if(index % 8 == 6){
-        sub += "252";
-    } else if(index % 8 == 7){
-        sub += "254";
+    var res = []
+    for(var i=0; i<4 ;i++){
+        subnetsl = subnet_bin.slice(8*i,8*(i+1));
+        var subnet = parseInt(subnetsl,2);
+        res.push(subnet);
     }
- 
-    if(index / 8 < 1){
-        sub += ".0.0.0";
-    } else if(index / 8 < 2){
-        sub += ".0.0";
-    } else if(index / 8 < 3){
-        sub += ".0";
-    } 
-
-    return sub;
+    return res.join('.');
 }
-console.log("hello");
+
+console.log("IP Subnet Calculator");
 // $('h1').text("poby")
 // $('body').append('<p> This is  my website </p>')
-for (let index = 32; index > 0; index--) {
+for (var index = 32; index > 0; index--) {
     // console.log(index);
 
     var subnetf = gensub(index);
@@ -62,6 +39,7 @@ for (let index = 32; index > 0; index--) {
 $('form').submit(function(e){
     e.preventDefault();
     var ip = $('input#InputIP').val();
+    $('td#ip').text(ip);
     var subnet = ($('select#InputSubnet').val());
     if(!ValidateIPaddress(ip)){
         alert('Please provide a valid IP address.');
@@ -70,3 +48,4 @@ $('form').submit(function(e){
     console.log(ip);
     console.log(subnet);
 })
+
