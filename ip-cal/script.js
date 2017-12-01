@@ -66,11 +66,109 @@ function getNetworkAddress(ip,subnet){
 	return result.join('.')
 }
 
+function getWildCard(subnet){
+	var wildcardBin = ''
+	subnet = parseInt(subnet);
+	for(var i=0; i<32; i++){
+        if(i<subnet){
+            wildcardBin = '0' + wildcardBin
+        } else {
+            wildcardBin = wildcardBin + '1'
+        }
+    }
+	return wildcardBin
+}
 
+function getWildCardMask(subnet){
+	var result = []
+	var wcBin = getWildCard(subnet)
+	for(var i =0;i<4;i++){
+		var wildcardTmp = parseInt(wcBin.slice(8*i,8*(i+1)),2)
+		result.push(wildcardTmp)
+	}
+	return result.join('.')
+}
 
 for (var index = 32; index > 0; index--) {
     var subnetf = gensubnet(index);
     $('select#InputSubnet').append('<option value="'+index+'">' + subnetf +' / '+ index + '</option>')
+}
+
+function getSubnetMask(subnet){
+	var result = []
+	var subnetBin = getSubnetBin(subnet)
+	for(var i =0;i<4;i++){
+		var Tmp = parseInt(subnetBin.slice(8*i,8*(i+1)),2)
+		result.push(Tmp)
+	}
+	return result.join('.')
+}
+
+function getBoardcast(ip,subnet){
+	var networkBin = getNetworkAddress(ip,subnet)
+	var networkAd = networkBin.split('.')
+	var wildcardBin = getWildCard(subnet)
+	var result = []
+	for(var i = 0;i<4;i++){
+		var networkTmp = networkAd[i]
+		var wcTmp = parseInt(wildcardBin.slice(8*i,8*(i+1)),2)
+		result.push(networkTmp | wcTmp)
+		// result.push(parseInt(network.slice(8*i,8*(i+1)),2));
+	}
+	// console.log(result.join('.'));
+	return result.join('.')
+}
+
+function ipprivate(ip){
+	var check = 'public';
+	var ipBin = ip.split('.')
+	for(var i =0; i<4; i++){
+		ipBin[i] = parseInt(ipBin[i])
+	}
+	if(ipBin[0] === 10 || ipBin[0] === 172 && (ipBin[1] >= 16 && ipBin[1] <= 31 || ipBin[0] === 192 && ipBin[1] === 168))
+		check='private'
+	return check
+
+}
+
+function getClass(addr) {
+    addr = addr.split('.');
+    var Class;
+    for (i in addr) {
+        addr[i] = parseInt(addr[i]);
+    }
+    if (parseInt(addr[0]) < 128) {
+        Class = 'A'
+    }
+    else if (parseInt(addr[0]) < 192) {
+        Class = 'B'
+    }
+    else if (parseInt(addr[0]) < 224) {
+        Class = 'C'
+    }
+    else {
+        Class = 'C'
+    }
+    return Class;
+}
+
+
+function getRange(ip,subnet){
+	var nohost = parseInt(getWildCard(subnet),2)+1;
+	var noofuseable = nohost<=2?0:nohost-2
+	var networkBin = getNetworkAddress(ip,subnet)
+	var bcBin = getBoardcast(ip,subnet)
+	var ncArray = networkBin.split('.')
+	var bcArray = bcBin.split('.')
+	ncArray[3] = (Number(ncArray[3])+1).toString()
+	bcArray[3] = (Number(bcArray[3])-1).toString()
+	var result = ''
+	if(noofuseable != 0){
+		result = ncArray.join('.')+' - '+bcArray.join('.')
+	} else {
+		result = '-'
+	}
+	return result
 }
 
 $('form').submit(function(e){
@@ -85,6 +183,9 @@ $('form').submit(function(e){
         return;
     }
     var result = $('#result-group');
+    var nohost = parseInt(getWildCard(data['csubnet']),2)+1;
+    
+
     $('#ip').text(data['ip']);
     $('#networkad').text(getNetworkAddress(data['ip'],data['subnet']))
     $('#wildcardmask').text(getWildCardMask(data['subnet']))
