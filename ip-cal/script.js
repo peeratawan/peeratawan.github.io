@@ -113,9 +113,7 @@ function getBoardcast(ip,subnet){
 		var networkTmp = networkAd[i]
 		var wcTmp = parseInt(wildcardBin.slice(8*i,8*(i+1)),2)
 		result.push(networkTmp | wcTmp)
-		// result.push(parseInt(network.slice(8*i,8*(i+1)),2));
 	}
-	// console.log(result.join('.'));
 	return result.join('.')
 }
 
@@ -163,6 +161,8 @@ function getAllNetworkGroup(ip,subnet){
 		}
 	}
 	if(notFullIndex === -1) {
+        $('#allpos-div').addClass('hide');
+        
 		return null
 	}
 	else{
@@ -182,21 +182,21 @@ function getAllNetworkGroup(ip,subnet){
 					tmp += '*.'
 				}
 			}
-		}
+        }
+        $("tr#all").empty()
 		$('#ipaddress2').text(tmp);
-		$('#allpos-div').removeClass('hide');
+        $('#allpos-div').removeClass('hide');
 		var wildcardBin = getWildCard(subnet)
 		var increment = parseInt(wildcardBin.slice(notFullIndex*8,(notFullIndex+1)*8),2)+1
 		// console.log(ip);
 		var numgroup = Math.pow(2,subnetbin.slice(notFullIndex*8,(notFullIndex+1)*8).match(/1/g || []).length)
 		for(var i=0;i<numgroup;i++){
 			var thisIp = ip.join('.')
-			console.log(thisIp);
-			$("#allposs-table").append('<tr><td>'+thisIp+'</td><td>'+getRange(thisIp,subnet)+'</td><td>'+getBoardcast(thisIp,subnet)+'</td></tr>')
+            console.log(thisIp);
+			$("#allposs-table").append('<tr id="all"><td>'+thisIp+'</td><td>'+getRange(thisIp,subnet)+'</td><td>'+getBoardcast(thisIp,subnet)+'</td></tr>')
 			ip[notFullIndex] += increment
 		}
 	}
-	// return null;
 }
 
 function getRange(ip,subnet){
@@ -222,7 +222,7 @@ $('form').submit(function(e){
     e.preventDefault();
     var rawData = $('form').serializeArray();
     var data = {};
-    console.log(rawData.length);
+    //console.log(rawData.length);
 	for (var i = 0; i < rawData.length; i++) {
 		data[rawData[i].name] = rawData[i].value;
 	}
@@ -250,8 +250,6 @@ $('form').submit(function(e){
 	$('#iprange').text(getRange(data['ip'],data['subnet']))
 	$('#iptype').text(ipprivate(data['ip']))
     $('#ipclass').text(getClass(data['ip']))
-    //$("#allposs-table").empty();
 	getAllNetworkGroup(data['ip'],data['subnet'])
     $('#result-group').removeClass('hide')
-
 });
