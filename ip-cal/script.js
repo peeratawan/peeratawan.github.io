@@ -26,6 +26,46 @@ function gensubnet(index) {
     return res.join('.');
 }
 
+function getSubnetBin(subnet){
+	var subnetBin = ''
+	subnet = parseInt(subnet);
+	for(var i = 0; i<subnet;i++){
+		subnetBin = '1' + subnetBin
+	}
+	for(var i = 0; i<(32-subnet);i++){
+		subnetBin = subnetBin + '0'
+	}
+	return subnetBin
+}
+
+
+function getIPBin(ip){
+	ip = ip.split('.')
+	var ipBin = ''
+	for(var i=0; i<ip.length; i++){
+		tmp = Number(ip[i]).toString(2);
+		while(tmp.length < 8){
+			tmp = '0' + tmp
+		}
+		ipBin += tmp;
+	}
+	return ipBin
+}
+
+function getNetworkAddress(ip,subnet){
+	var ipBin = getIPBin(ip);
+	var ipDec = parseInt(ipBin,2);
+	var subnetBin = getSubnetBin(subnet)
+	var result = []
+	for(var i = 0;i<4;i++){
+		var ipTmp = parseInt(ipBin.slice(8*i,8*(i+1)),2)
+		var subnetTmp = parseInt(subnetBin.slice(8*i,8*(i+1)),2)
+		result.push(ipTmp & subnetTmp)
+		// result.push(parseInt(network.slice(8*i,8*(i+1)),2));
+	}
+	return result.join('.')
+}
+
 
 
 for (var index = 32; index > 0; index--) {
@@ -46,5 +86,7 @@ $('form').submit(function(e){
     }
     var result = $('#result-group');
     $('#ip').text(data['ip']);
+    $('#networkad').text(getNetworkAddress(data['ip'],data['subnet']))
+    
 })
 
