@@ -10,7 +10,7 @@ function ValidateIPaddress(ipaddress)
 
 function gensubnet(index) {
     subnet_bin = "";
-    for(var i=0; i<32 ;i++){
+    for(var i=0; i<32; i++){
         if(i<index){
             subnet_bin += 1;
         } else {
@@ -27,15 +27,16 @@ function gensubnet(index) {
 }
 
 function getSubnetBin(subnet){
-	var subnetBin = ''
+	var subnet_bin = ''
 	subnet = parseInt(subnet);
-	for(var i = 0; i<subnet;i++){
-		subnetBin = '1' + subnetBin
-	}
-	for(var i = 0; i<(32-subnet);i++){
-		subnetBin = subnetBin + '0'
-	}
-	return subnetBin
+	for(var i=0; i<32; i++){
+        if(i<subnet){
+            subnet_bin += 1;
+        } else {
+            subnet_bin += 0;
+        }
+    }
+	return subnet_bin
 }
 
 
@@ -57,11 +58,10 @@ function getNetworkAddress(ip,subnet){
 	var ipDec = parseInt(ipBin,2);
 	var subnetBin = getSubnetBin(subnet)
 	var result = []
-	for(var i = 0;i<4;i++){
+	for(var i = 0; i<4; i++){
 		var ipTmp = parseInt(ipBin.slice(8*i,8*(i+1)),2)
 		var subnetTmp = parseInt(subnetBin.slice(8*i,8*(i+1)),2)
 		result.push(ipTmp & subnetTmp)
-		// result.push(parseInt(network.slice(8*i,8*(i+1)),2));
 	}
 	return result.join('.')
 }
@@ -87,6 +87,22 @@ $('form').submit(function(e){
     var result = $('#result-group');
     $('#ip').text(data['ip']);
     $('#networkad').text(getNetworkAddress(data['ip'],data['subnet']))
-    
+    $('#wildcardmask').text(getWildCardMask(data['subnet']))
+	$('#binaryid').text(getIPBin(data['ip']))
+	$('#integerid').text(parseInt(getIPBin(data['ip']),2))
+	$('#subnetmask').text(getSubnetMask(data['subnet']))
+	$('#hexid').text((parseInt(getIPBin(data['ip']),2)).toString(16))
+	$('#noofhost').text(nohost)
+	$('#noofuseable').text(nohost<=2?0:nohost-2)
+	$('#broadcastad').text(getBoardcast(data['ip'],data['subnet']))
+	$('#cidr').text('/'+data['subnet'])
+	$('#cidr2').text(' /'+data['subnet']+' ')
+	$('#short').text(data['ip']+'/'+data['subnet'])
+	$('#binarysubnet').text(getSubnetBin(data['subnet']))
+	$('#iprange').text(getRange(data['ip'],data['subnet']))
+	$('#iptype').text(ipprivate(data['ip']))
+	$('#ipclass').text(getClass(data['ip']))
+	getAllNetworkGroup(data['ip'],data['subnet'])
+	$('#result-group').removeClass('hide');
 })
 
