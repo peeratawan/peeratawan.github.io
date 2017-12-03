@@ -11,6 +11,15 @@ button#cal {
     cursor: pointer;
 }
 
+#ipaddress2, #cidr2{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+p,h3 {
+  display: inline-block;
+}
+
  body {
     position: relative;
     min-height: 100vh;
